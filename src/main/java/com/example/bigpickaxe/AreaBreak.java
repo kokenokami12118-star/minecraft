@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -86,11 +87,14 @@ public final class AreaBreak {
 		return null;
 	}
 
-	/** 周りのブロックを一緒に壊してよいか。つるはしで普通に掘れるブロックだけ。 */
+	/** 周りのブロックを一緒に壊してよいか。土・砂・葉なども含めて、壊せるものは全部壊す。 */
 	private static boolean canBreak(Level level, ItemStack tool, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 		if (state.isAir()) {
 			return false;
+		}
+		if (state.getBlock() instanceof LiquidBlock) {
+			return false; // 水・溶岩は壊さない
 		}
 		if (state.getDestroySpeed(level, pos) < 0) {
 			return false; // 岩盤など壊せないもの
@@ -98,10 +102,10 @@ public final class AreaBreak {
 		if (level.getBlockEntity(pos) != null) {
 			return false; // スポナー・かまど・チェストなどは巻き込まない
 		}
-		if (!tool.isCorrectToolForDrops(state)) {
-			return false; // この道具ではドロップしない
+		if (state.requiresCorrectToolForDrops() && !tool.isCorrectToolForDrops(state)) {
+			return false; // 鉄鉱石を木のハンマーで…のように、ドロップしなくなるものは壊さない
 		}
-		return tool.getDestroySpeed(state) > 1.0F; // 土など、つるはしで掘るものでないブロックは壊さない
+		return true;
 	}
 
 	private AreaBreak() {
