@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:copper_ingot",
+    "P": "minecraft:copper_pickaxe"
+  },
+  "pattern": [
+    " I ",
+    "IPI",
+    " I "
+  ],
+  "result": {
+    "id": "bigpickaxe:copper_big_pickaxe"
+  }
+}

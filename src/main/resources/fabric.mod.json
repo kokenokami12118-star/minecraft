@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "bigpickaxe",
+  "version": "${version}",
+  "name": "Big Pickaxes (3x3)",
+  "description": "3x3x1 pickaxes: wooden, stone, copper, iron, diamond and netherite.",
+  "authors": [],
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.bigpickaxe.BigPickaxeMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

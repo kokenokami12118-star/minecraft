@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:diamond",
+    "P": "minecraft:diamond_pickaxe"
+  },
+  "pattern": [
+    " I ",
+    "IPI",
+    " I "
+  ],
+  "result": {
+    "id": "bigpickaxe:diamond_big_pickaxe"
+  }
+}

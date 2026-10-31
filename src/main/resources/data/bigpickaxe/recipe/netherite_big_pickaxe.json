@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:netherite_ingot",
+    "P": "minecraft:netherite_pickaxe"
+  },
+  "pattern": [
+    " I ",
+    "IPI",
+    " I "
+  ],
+  "result": {
+    "id": "bigpickaxe:netherite_big_pickaxe"
+  }
+}

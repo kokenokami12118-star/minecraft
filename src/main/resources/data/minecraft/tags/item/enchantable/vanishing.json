@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "bigpickaxe:wooden_big_pickaxe",
+    "bigpickaxe:stone_big_pickaxe",
+    "bigpickaxe:copper_big_pickaxe",
+    "bigpickaxe:iron_big_pickaxe",
+    "bigpickaxe:diamond_big_pickaxe",
+    "bigpickaxe:netherite_big_pickaxe"
+  ]
+}
