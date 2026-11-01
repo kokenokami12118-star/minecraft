@@ -3,6 +3,8 @@ package com.example.bigpickaxe;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -77,9 +79,21 @@ public final class AreaBreak {
 			if (!targets.isEmpty()) {
 				// 掘ったあとに、経験値オーブの音を鳴らす
 				level.playSound(null, pos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+				// 掘ったブロックの場所に、ネザーポータルのエフェクト(紫のつぶ)を出す
+				if (level instanceof ServerLevel serverLevel) {
+					spawnPortalParticles(serverLevel, pos);
+					for (BlockPos target : targets) {
+						spawnPortalParticles(serverLevel, target);
+					}
+				}
 			}
 			return true; // 真ん中のブロックは普通どおり壊れる
 		});
+	}
+
+	/** ブロックの中心に、ネザーポータルのつぶを出す。 */
+	private static void spawnPortalParticles(ServerLevel level, BlockPos pos) {
+		level.sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16, 0.3, 0.3, 0.3, 0.6);
 	}
 
 	/** 掘っているブロックのどの面を見ているかを調べる。 */
