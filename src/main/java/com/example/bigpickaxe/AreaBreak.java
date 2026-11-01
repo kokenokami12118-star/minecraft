@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -71,6 +73,10 @@ public final class AreaBreak {
 				}
 			} finally {
 				breaking = false;
+			}
+			if (!targets.isEmpty()) {
+				// 掘ったあとに、アメジストのような澄んだ音を鳴らす
+				level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
 			}
 			return true; // 真ん中のブロックは普通どおり壊れる
 		});
