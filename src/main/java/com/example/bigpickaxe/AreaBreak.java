@@ -76,7 +76,7 @@ public final class AreaBreak {
 			}
 			if (!targets.isEmpty()) {
 				// 掘ったあとに、アメジストのような澄んだ音を鳴らす
-				level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+				level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
 			}
 			return true; // 真ん中のブロックは普通どおり壊れる
 		});
