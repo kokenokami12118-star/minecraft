@@ -29,6 +29,9 @@ public final class AreaBreak {
 	// 周りのブロックを壊すときに、このイベントがもう一度呼ばれて無限ループしないようにする
 	private static boolean breaking = false;
 
+	// 音を重ねる回数。大きくするほど音が大きくなる
+	private static final int SOUND_LAYERS = 3;
+
 	public static void init() {
 		PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
 			if (breaking || level.isClientSide()) {
@@ -77,8 +80,12 @@ public final class AreaBreak {
 				breaking = false;
 			}
 			if (!targets.isEmpty()) {
-				// 掘ったあとに、経験値オーブの音を鳴らす
-				level.playSound(null, pos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+				// 掘ったあとに、経験値オーブの音を鳴らす。
+				// 音量は1.0が上限なので、同じ音を重ねて鳴らして大きくしている(回数を増減すると音の大きさが変わる)
+				float pitch = 0.8F + level.getRandom().nextFloat() * 0.4F;
+				for (int i = 0; i < SOUND_LAYERS; i++) {
+					level.playSound(null, pos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, pitch);
+				}
 				// 掘ったブロックの場所に、ネザーポータルのエフェクト(紫のつぶ)を出す
 				if (level instanceof ServerLevel serverLevel) {
 					spawnPortalParticles(serverLevel, pos);
